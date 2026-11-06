@@ -1,0 +1,74 @@
+{
+  "$schema": "https://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:7c0fd0d4-6a0e-4f5b-8f62-bb5b6e6b2f11",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-21T14:03:10Z",
+    "tools": {"components": [{"type": "application", "group": "@cyclonedx", "name": "cdxgen", "version": "11.4.0", "purl": "pkg:npm/%40cyclonedx/cdxgen@11.4.0"}]},
+    "component": {"type": "application", "bom-ref": "pkg:pypi/payments-worker@2.0.0", "name": "payments-worker", "version": "2.0.0", "purl": "pkg:pypi/payments-worker@2.0.0"}
+  },
+  "components": [
+    {"type": "library", "bom-ref": "pkg:pypi/cryptography@43.0.1", "name": "cryptography", "version": "43.0.1", "purl": "pkg:pypi/cryptography@43.0.1"},
+    {"type": "library", "bom-ref": "pkg:pypi/pycryptodome@3.21.0", "name": "pycryptodome", "version": "3.21.0", "purl": "pkg:pypi/pycryptodome@3.21.0"},
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/algorithm/aes-256-cbc@2.16.840.1.101.3.4.1.42", "name": "aes-256-cbc",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "block-cipher", "parameterSetIdentifier": "256", "mode": "cbc", "padding": "pkcs7",
+                                "cryptoFunctions": ["encrypt", "decrypt"]},
+        "oid": "2.16.840.1.101.3.4.1.42"},
+      "evidence": {"occurrences": [{"location": "worker/vault.py", "line": 18, "additionalContext": "Cipher(algorithms.AES(key), modes.CBC(iv))"}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/algorithm/pbkdf2-hmac-sha256", "name": "pbkdf2-hmac-sha256",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "kdf", "cryptoFunctions": ["keyderive"]}},
+      "evidence": {"occurrences": [{"location": "worker/vault.py", "line": 11, "additionalContext": "PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, iterations=600000)"}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/algorithm/sha256@2.16.840.1.101.3.4.2.1", "name": "sha256",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "hash", "parameterSetIdentifier": "256", "cryptoFunctions": ["digest"]},
+        "oid": "2.16.840.1.101.3.4.2.1"},
+      "evidence": {"occurrences": [{"location": "worker/integrity.py", "line": 7}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/algorithm/ecdsa-p256-sha256", "name": "ecdsa-with-SHA256",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "signature", "curve": "secp256r1", "cryptoFunctions": ["verify"]}},
+      "evidence": {"occurrences": [{"location": "worker/webhooks.py", "line": 40, "additionalContext": "public_key.verify(sig, data, ec.ECDSA(hashes.SHA256()))"}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/algorithm/rsa-2048", "name": "RSA",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "pke", "parameterSetIdentifier": "2048", "cryptoFunctions": ["keygen"],
+                                "classicalSecurityLevel": 112, "nistQuantumSecurityLevel": 0}},
+      "evidence": {"occurrences": [{"location": "worker/keys.py", "line": 22, "additionalContext": "rsa.generate_private_key(public_exponent=65537, key_size=2048)"}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/material/private-key/keys-server.pem", "name": "server.pem",
+      "cryptoProperties": {"assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {"type": "private-key", "algorithmRef": "crypto/algorithm/rsa-2048", "size": 2048, "format": "PEM", "state": "active"}},
+      "evidence": {"occurrences": [{"location": "deploy/keys/server.pem", "line": 1}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "crypto/protocol/tls-1.3", "name": "TLS 1.3",
+      "cryptoProperties": {"assetType": "protocol",
+        "protocolProperties": {"type": "tls", "version": "1.3",
+          "cipherSuites": [
+            {"name": "TLS_AES_256_GCM_SHA384", "identifiers": ["0x1302"]},
+            {"name": "TLS_CHACHA20_POLY1305_SHA256", "identifiers": ["0x1303"]}
+          ]}},
+      "evidence": {"occurrences": [{"location": "worker/http.py", "line": 15, "additionalContext": "ssl.create_default_context(); ctx.minimum_version = TLSVersion.TLSv1_3"}]}
+    }
+  ],
+  "dependencies": [
+    {"ref": "pkg:pypi/payments-worker@2.0.0", "dependsOn": ["pkg:pypi/cryptography@43.0.1", "pkg:pypi/pycryptodome@3.21.0",
+                                                            "crypto/algorithm/aes-256-cbc@2.16.840.1.101.3.4.1.42", "crypto/algorithm/pbkdf2-hmac-sha256",
+                                                            "crypto/algorithm/sha256@2.16.840.1.101.3.4.2.1", "crypto/algorithm/ecdsa-p256-sha256",
+                                                            "crypto/algorithm/rsa-2048", "crypto/material/private-key/keys-server.pem", "crypto/protocol/tls-1.3"]},
+    {"ref": "pkg:pypi/cryptography@43.0.1", "provides": ["crypto/algorithm/aes-256-cbc@2.16.840.1.101.3.4.1.42", "crypto/algorithm/pbkdf2-hmac-sha256", "crypto/algorithm/ecdsa-p256-sha256", "crypto/algorithm/rsa-2048"]},
+    {"ref": "pkg:pypi/pycryptodome@3.21.0", "provides": ["crypto/algorithm/sha256@2.16.840.1.101.3.4.2.1"]}
+  ]
+}

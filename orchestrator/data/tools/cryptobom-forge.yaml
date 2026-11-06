@@ -1,0 +1,38 @@
+# cryptobom-forge (Santander Security Research) -- turns CodeQL SARIF results into an IBM-dialect CBOM
+# (bomFormat CBOM, specVersion 1.4-cbom-1.0).  The adapter runs CodeQL first; see
+# orchestrator/tools/cryptobom_forge.py for the pipeline and the version bookkeeping.
+id: cryptobom-forge
+name: cryptobom-forge
+repo: https://github.com/santandersecurityresearch/cryptobom-forge
+adapter: orchestrator.tools.cryptobom_forge:CryptobomForgeAdapter
+description: >-
+  Cryptographic BOM generated from the CodeQL cryptography inventory queries.
+versioning:
+  strategy: release
+launcher: local
+languages:
+  Python: python          # CodeQL language names
+  Java: java
+  Go: go
+  TypeScript: javascript
+  C#: csharp
+options:
+  codeql:
+    bundle_repo: https://github.com/github/codeql-action
+    bundle_tag_pattern: "^codeql-bundle-v"
+    binary: null          # set to a codeql executable to skip the bundle download
+    threads: 0
+    # Query directories inside the language's query pack.  Languages without an entry run as
+    # "unsupported" (no cryptography inventory queries exist for them in the CodeQL repository).
+    queries:
+      Python: [experimental/cryptography/inventory/new_models]
+      Java: [experimental/quantum/InventorySlices]
+    build_mode:
+      Java: none
+      C#: none
+  forge:
+    extra_args: []
+timeout_seconds: 3600
+twocbom:
+  aliases: [cryptobom-forge, cryptobomforge, cryptobom forge, forge, CodeQL cryptobom-forge]
+  detection_method: static-source

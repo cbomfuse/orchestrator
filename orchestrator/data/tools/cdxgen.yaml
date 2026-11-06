@@ -1,0 +1,44 @@
+# cdxgen (CycloneDX) -- `cdxgen --include-crypto --evidence --deep` (what the `cbom` alias sets) emits
+# cryptographic-asset components with evidence occurrences.  The container image tag equals the release tag.
+id: cdxgen
+name: cdxgen
+repo: https://github.com/CycloneDX/cdxgen
+description: >-
+  CycloneDX generator with CBOM support (cryptographic-asset components, evidence occurrences).
+versioning:
+  strategy: release
+launcher: docker
+docker:
+  image: ghcr.io/cyclonedx/cdxgen:{tag}
+  fallback_tag: latest
+  mount: /app
+  workdir: /app
+  user: current
+  env:
+    FETCH_LICENSE: "false"
+    CDXGEN_DEBUG_MODE: "none"
+    HOME: /tmp
+    NPM_CONFIG_CACHE: /tmp/.npm
+  args: ["-t", "{language}", "--include-crypto", "--evidence", "--deep", "--spec-version", "1.6",
+         "-o", "{output_container}", "{mount}"]
+local:
+  # requires Node.js >= 24 on PATH
+  install:
+    - ["npm", "install", "--prefix", "{cache}", "--no-audit", "--no-fund", "@cyclonedx/cdxgen@{version}"]
+  check: ["{cache}/node_modules/.bin/cdxgen", "--version"]
+  command: ["{cache}/node_modules/.bin/cdxgen", "-t", "{language}", "--include-crypto", "--evidence", "--deep",
+            "--spec-version", "1.6", "-o", "{output}", "{workdir}"]
+  env:
+    FETCH_LICENSE: "false"
+output: cbom.cdxgen.json
+format: cyclonedx
+languages:
+  Python: python
+  Java: java
+  Go: go
+  TypeScript: js
+  C#: dotnet
+timeout_seconds: 2400
+twocbom:
+  aliases: [cdxgen, "@cyclonedx/cdxgen", cyclonedx-generator, cyclonedx generator, "@cyclonedx/cdxgen"]
+  detection_method: static-source

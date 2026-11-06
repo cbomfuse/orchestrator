@@ -1,0 +1,63 @@
+{
+  "corpus": "cbom-ground-truth",
+  "language": "Mini",
+  "file": "mini.py",
+  "generated": "2026-01-01T00:00:00Z",
+  "conventions": {"line": "1-based", "column": "1-based Unicode code points", "end": "exclusive"},
+  "libraries": [
+    {"id": "lib.pyca", "name": "cryptography (pyca)", "version": "50.0.2", "purl": "pkg:pypi/cryptography@50.0.2", "license": "Apache-2.0", "scope": "required"}
+  ],
+  "assets": [
+    {"id": "sha-256", "kind": "algorithm", "bomRef": "crypto/algorithm/sha-256", "implicit": false, "functions": ["digest"],
+     "occurrences": [{"id": "M-001", "relation": "direct"}],
+     "properties": {"id": "sha-256", "name": "SHA-256", "primitive": "hash", "family": "SHA-2", "parameterSetIdentifier": "256",
+                    "mode": null, "padding": null, "curve": null, "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 2,
+                    "oid": "2.16.840.1.101.3.4.2.1"}},
+    {"id": "aes-256-gcm", "kind": "algorithm", "bomRef": "crypto/algorithm/aes-256-gcm", "implicit": false, "functions": ["encrypt", "decrypt"],
+     "occurrences": [{"id": "M-002", "relation": "direct"}, {"id": "M-003", "relation": "direct"}],
+     "properties": {"id": "aes-256-gcm", "name": "AES-256-GCM", "primitive": "ae", "family": "AES", "parameterSetIdentifier": "256",
+                    "mode": "gcm", "padding": null, "curve": null, "classicalSecurityLevel": 256, "nistQuantumSecurityLevel": 5,
+                    "oid": "2.16.840.1.101.3.4.1.46"}},
+    {"id": "aes-128-cbc", "kind": "algorithm", "bomRef": "crypto/algorithm/aes-128-cbc", "implicit": false, "functions": ["encrypt"],
+     "occurrences": [{"id": "M-004", "relation": "direct"}],
+     "properties": {"id": "aes-128-cbc", "name": "AES-128-CBC-PKCS7", "primitive": "block-cipher", "family": "AES", "parameterSetIdentifier": "128",
+                    "mode": "cbc", "padding": "pkcs7", "curve": null, "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 1,
+                    "oid": "2.16.840.1.101.3.4.1.2"}},
+    {"id": "ecdsa-p256-sha256", "kind": "algorithm", "bomRef": "crypto/algorithm/ecdsa-p256-sha256", "implicit": false, "functions": ["sign", "verify"],
+     "occurrences": [{"id": "M-005", "relation": "direct"}],
+     "properties": {"id": "ecdsa-p256-sha256", "name": "ECDSA P-256 with SHA-256", "primitive": "signature", "family": "ECDSA",
+                    "parameterSetIdentifier": "P-256", "mode": null, "padding": null, "curve": "secp256r1",
+                    "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 0, "oid": "1.2.840.10045.4.3.2"}},
+    {"id": "m.gcm-key", "kind": "related-crypto-material", "bomRef": "crypto/material/gcm-key", "implicit": false, "functions": [],
+     "occurrences": [{"id": "M-006", "relation": "direct"}],
+     "properties": {"id": "m.gcm-key", "name": "AES-256-GCM key", "type": "secret-key", "size": 256, "provenance": "csprng",
+                    "algorithmRef": "aes-256-gcm", "scenario": "S01"}},
+    {"id": "sha-384", "kind": "algorithm", "bomRef": "crypto/algorithm/sha-384", "implicit": true, "functions": [],
+     "occurrences": [],
+     "properties": {"id": "sha-384", "name": "SHA-384", "primitive": "hash", "family": "SHA-2", "parameterSetIdentifier": "384",
+                    "mode": null, "padding": null, "curve": null, "classicalSecurityLevel": 192, "nistQuantumSecurityLevel": 4,
+                    "oid": "2.16.840.1.101.3.4.2.2"}}
+  ],
+  "occurrences": [
+    {"id": "M-001", "file": "mini.py", "scenario": "S00", "scope": "digest", "role": "op:digest", "kind": "op", "qualifier": "digest",
+     "asset": "sha-256", "symbol": "hashlib.sha256", "library": "lib.py-stdlib", "start": {"line": 10, "column": 5}, "end": {"line": 10, "column": 30}},
+    {"id": "M-002", "file": "mini.py", "scenario": "S01", "scope": "gcm", "role": "ctor", "kind": "ctor", "qualifier": null,
+     "asset": "aes-256-gcm", "symbol": "AESGCM", "library": "lib.pyca", "start": {"line": 20, "column": 5}, "end": {"line": 20, "column": 20}},
+    {"id": "M-003", "file": "mini.py", "scenario": "S01", "scope": "gcm", "role": "op:encrypt", "kind": "op", "qualifier": "encrypt",
+     "asset": "aes-256-gcm", "symbol": "AESGCM.encrypt", "library": "lib.pyca", "start": {"line": 22, "column": 5}, "end": {"line": 22, "column": 40}},
+    {"id": "M-004", "file": "mini.py", "scenario": "S02", "scope": "cbc", "role": "ctor:encrypt", "kind": "ctor", "qualifier": "encrypt",
+     "asset": "aes-128-cbc", "symbol": "Cipher", "library": "lib.pyca", "start": {"line": 30, "column": 5}, "end": {"line": 30, "column": 40}},
+    {"id": "M-005", "file": "mini.py", "scenario": "S03", "scope": "sign", "role": "op:sign", "kind": "op", "qualifier": "sign",
+     "asset": "ecdsa-p256-sha256", "symbol": "EllipticCurvePrivateKey.sign", "library": "lib.pyca", "start": {"line": 40, "column": 5}, "end": {"line": 40, "column": 50}},
+    {"id": "M-006", "file": "mini.py", "scenario": "S01", "scope": "gcm", "role": "mat", "kind": "mat", "qualifier": null,
+     "asset": "m.gcm-key", "symbol": null, "library": "lib.pyca", "start": {"line": 19, "column": 5}, "end": {"line": 19, "column": 25}},
+    {"id": "M-007", "file": "mini.py", "scenario": "-", "scope": "<module>", "role": "imp", "kind": "imp", "qualifier": null,
+     "asset": "lib.pyca", "symbol": "cryptography", "library": "lib.pyca", "start": {"line": 2, "column": 1}, "end": {"line": 2, "column": 30}}
+  ],
+  "nonAssetMentions": [
+    {"id": "M-N001", "line": 50, "column": 3, "length": 3, "text": "MD5", "context": "comment", "token": "# legacy MD5 removed", "reason": "Comment text"}
+  ],
+  "notes": {},
+  "runtimeNotes": [],
+  "expectedOutput": []
+}

@@ -1,0 +1,63 @@
+# Nightly benchmark: newest release of every tool against the current cbomfuse/baseline.
+# Results (scorecard.json, priors.json, report.md, twocbom/tools.json) are uploaded as an artifact
+# and the overall table is written to the job summary.
+name: CBOM generator benchmark
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+    inputs:
+      tools:
+        description: "Comma-separated tool ids (default: all enabled)"
+        required: false
+        default: ""
+      baseline_ref:
+        description: "cbomfuse/baseline ref"
+        required: false
+        default: "main"
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install orchestrator
+        run: pip install -e .
+      - name: Cache tool installs (CodeQL bundle, cryptobom-forge venv)
+        uses: actions/cache@v4
+        with:
+          path: .orchestrator/cache
+          key: orchestrator-cache-${{ runner.os }}-${{ hashFiles('orchestrator/data/tools/*.yaml') }}
+      - name: Run benchmark
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          args=""
+          for t in $(echo "${{ github.event.inputs.tools }}" | tr ',' ' '); do args="$args --tool $t"; done
+          orchestrator -v run --run-id "ci-${{ github.run_id }}" --baseline-ref "${{ github.event.inputs.baseline_ref || 'main' }}" $args
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f results/ci-${{ github.run_id }}/report.md ]; then
+            sed -n '1,/^## By language/p' results/ci-${{ github.run_id }}/report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-${{ github.run_id }}
+          path: |
+            results/ci-${{ github.run_id }}/manifest.json
+            results/ci-${{ github.run_id }}/scorecard.json
+            results/ci-${{ github.run_id }}/priors.json
+            results/ci-${{ github.run_id }}/report.md
+            results/ci-${{ github.run_id }}/twocbom/
+            results/ci-${{ github.run_id }}/raw/
+            results/ci-${{ github.run_id }}/logs/

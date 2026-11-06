@@ -1,0 +1,43 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:9d5b1f3e-2a6c-4d8e-b7f0-1c2d3e4f5a6b",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-22T08:30:00Z",
+    "tools": {"components": [{"type": "application", "name": "cryptobom-forge", "version": "1.2.0"}]},
+    "component": {"type": "application", "bom-ref": "payments-service", "name": "payments-service", "version": "3.4.1"}
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset", "bom-ref": "forge-1", "name": "AES",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "block-cipher", "cryptoFunctions": ["encrypt"]}},
+      "evidence": {"occurrences": [{"location": "./src/main/java/com/example/payments/CryptoUtil.java", "line": 42, "symbol": "javax.crypto.Cipher.getInstance"}]},
+      "properties": [{"name": "codeql:query", "value": "java/crypto/use-of-aes"}]
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "forge-2", "name": "SHA-1",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "hash", "cryptoFunctions": ["digest"]}},
+      "evidence": {"occurrences": [{"location": "./src/main/java/com/example/payments/LegacyToken.java", "line": 66, "symbol": "java.security.MessageDigest.getInstance"}]},
+      "properties": [{"name": "codeql:query", "value": "java/weak-cryptographic-algorithm"}]
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "forge-3", "name": "RSA",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "signature", "cryptoFunctions": ["sign", "verify"]}},
+      "evidence": {"occurrences": [{"location": "./src/main/java/com/example/payments/Signer.java", "line": 23, "symbol": "java.security.Signature.getInstance"}]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "forge-4", "name": "DES",
+      "cryptoProperties": {"assetType": "algorithm",
+        "algorithmProperties": {"primitive": "block-cipher", "mode": "cbc", "cryptoFunctions": ["decrypt"]}},
+      "evidence": {"occurrences": [{"location": "./src/main/java/com/example/payments/LegacyToken.java", "line": 71, "symbol": "javax.crypto.Cipher.getInstance"}]},
+      "properties": [{"name": "codeql:query", "value": "java/weak-cryptographic-algorithm"}]
+    }
+  ],
+  "dependencies": [
+    {"ref": "payments-service", "dependsOn": ["forge-1", "forge-2", "forge-3", "forge-4"]}
+  ]
+}

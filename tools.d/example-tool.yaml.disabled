@@ -1,0 +1,30 @@
+# Template for a new CBOM generator.  Rename to <id>.yaml and add the id to tools.enabled in
+# orchestrator.yaml.  Every key is explained in docs/adding-a-tool.md.
+id: example-tool
+name: Example CBOM Tool
+repo: https://github.com/example/example-cbom-tool
+description: Scans source code and writes a CycloneDX CBOM.
+versioning:
+  strategy: release            # release | tag | branch | fixed
+launcher: docker               # docker | local
+docker:
+  image: ghcr.io/example/example-cbom-tool:{tag}
+  mount: /src
+  workdir: /src
+  user: current
+  args: ["scan", "--language", "{language}", "--output", "{output_container}", "{mount}"]
+local:
+  install: ["pip install example-cbom-tool=={version}"]
+  command: ["example-cbom-tool", "scan", "--language", "{language}", "--output", "{output}", "{workdir}"]
+output: example-cbom.json       # relative to the scanned workspace; globs allowed
+format: auto                    # auto | cyclonedx | ibm-cbom
+languages:                      # corpus language -> the value substituted for {language}
+  Python: python
+  Java: java
+  Go: go
+  TypeScript: typescript
+  C#: csharp
+timeout_seconds: 1800
+twocbom:
+  aliases: [example-tool, example cbom tool]
+  detection_method: static-source

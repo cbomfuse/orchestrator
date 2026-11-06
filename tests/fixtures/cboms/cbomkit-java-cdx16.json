@@ -1,0 +1,119 @@
+{
+  "$schema": "https://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-20T09:12:44Z",
+    "tools": {
+      "components": [
+        {"type": "application", "group": "IBM", "name": "CBOMkit", "version": "2.1.0"}
+      ]
+    },
+    "component": {"type": "application", "bom-ref": "payments-service", "name": "payments-service", "version": "3.4.1"},
+    "properties": [
+      {"name": "git-url", "value": "https://github.com/example/payments-service"},
+      {"name": "revision", "value": "main"},
+      {"name": "commit", "value": "9f1c2a7"}
+    ]
+  },
+  "components": [
+    {
+      "type": "library", "bom-ref": "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.78",
+      "group": "org.bouncycastle", "name": "bcprov-jdk18on", "version": "1.78",
+      "purl": "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.78"
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000001", "name": "AES128-GCM",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "ae", "parameterSetIdentifier": "128", "mode": "gcm",
+          "executionEnvironment": "software-plain-ram", "implementationPlatform": "generic",
+          "cryptoFunctions": ["encrypt", "decrypt"],
+          "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 1
+        },
+        "oid": "2.16.840.1.101.3.4.1.6"
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/CryptoUtil.java", "line": 42, "offset": 23,
+         "additionalContext": "Cipher.getInstance(\"AES/GCM/NoPadding\")"}
+      ]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000002", "name": "RSA-2048",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke", "parameterSetIdentifier": "2048", "padding": "oaep",
+          "executionEnvironment": "software-plain-ram",
+          "cryptoFunctions": ["keygen", "encrypt", "decrypt"],
+          "classicalSecurityLevel": 112, "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/KeyExchange.java", "line": 77, "offset": 12,
+         "additionalContext": "Cipher.getInstance(\"RSA/ECB/OAEPWithSHA-256AndMGF1Padding\")"},
+        {"location": "src/main/java/com/example/payments/KeyExchange.java", "line": 31, "offset": 8,
+         "additionalContext": "KeyPairGenerator.getInstance(\"RSA\").initialize(2048)"}
+      ]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000003", "name": "SHA256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {"primitive": "hash", "parameterSetIdentifier": "256", "cryptoFunctions": ["digest"],
+                                "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 2}
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/CryptoUtil.java", "line": 88, "offset": 20,
+         "additionalContext": "MessageDigest.getInstance(\"SHA-256\")"}
+      ]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000004", "name": "HMAC-SHA256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {"primitive": "mac", "cryptoFunctions": ["tag"],
+                                "classicalSecurityLevel": 128, "nistQuantumSecurityLevel": 2}
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/Webhook.java", "line": 54, "offset": 19,
+         "additionalContext": "Mac.getInstance(\"HmacSHA256\")"}
+      ]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000005", "name": "SHA256withRSA",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {"primitive": "signature", "cryptoFunctions": ["sign", "verify"],
+                                "classicalSecurityLevel": 112, "nistQuantumSecurityLevel": 0}
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/Signer.java", "line": 23, "offset": 14,
+         "additionalContext": "Signature.getInstance(\"SHA256withRSA\")"}
+      ]}
+    },
+    {
+      "type": "cryptographic-asset", "bom-ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000006", "name": "TLSv1.2",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {"type": "tls", "version": "1.2"}
+      },
+      "evidence": {"occurrences": [
+        {"location": "src/main/java/com/example/payments/HttpClientFactory.java", "line": 19, "offset": 30,
+         "additionalContext": "SSLContext.getInstance(\"TLSv1.2\")"}
+      ]}
+    }
+  ],
+  "dependencies": [
+    {"ref": "payments-service", "dependsOn": ["6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000001", "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000002",
+                                               "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000003", "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000004",
+                                               "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000005", "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000006",
+                                               "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.78"]},
+    {"ref": "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.78", "provides": ["6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000001", "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000002"]},
+    {"ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000002", "dependsOn": ["6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000003"]},
+    {"ref": "6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000005", "dependsOn": ["6a5f2d3e-1b3c-4e7f-9a0b-aaaa00000003"]}
+  ]
+}

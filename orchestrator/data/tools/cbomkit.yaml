@@ -1,0 +1,44 @@
+# CBOMkit (PQCA / IBM) -- source scanner built on the Sonar Cryptography plugin ("CBOMkit-hyperion").
+#
+# The CLI-style packaging is the cbomkit-action container image, which scans GITHUB_WORKSPACE and
+# writes <CBOMKIT_OUTPUT_DIR>/cbom.json (consolidated) plus one cbom_<module>.json per project module.
+# Release tags look like v2.3.0 and the image is tagged with the bare version (2.3.0); `edge` tracks main.
+id: cbomkit
+name: CBOMkit-action
+repo: https://github.com/cbomkit/cbomkit-action
+description: >-
+  CBOM generation from source code (Java, Python, Go, C#) via the Sonar Cryptography plugin, packaged
+  as the cbomkit-action container.  Not available as a local install: the jar depends on packages
+  hosted on GitHub Packages, so the published image is the reproducible artefact.
+versioning:
+  strategy: release          # newest GitHub release; falls back to the highest tag
+launcher: docker
+docker:
+  image: ghcr.io/cbomkit/cbomkit-action:{version}
+  fallback_tag: edge         # used only when the release tag has no image yet
+  mount: /github/workspace
+  workdir: /github/workspace
+  user: current
+  env:
+    GITHUB_WORKSPACE: "{mount}"
+    GITHUB_OUTPUT: "{mount}/.cbomkit-output.txt"
+    CBOMKIT_OUTPUT_DIR: "{mount}/cbom"
+    CBOMKIT_LANGUAGES: "{language}"
+    CBOMKIT_JAVA_REQUIRE_BUILD: "false"   # the corpus is scanned from source; bundled BouncyCastle jars resolve symbols
+    CBOMKIT_WRITE_EMTPY_CBOMS: "true"
+    CBOMKIT_GENERATE_MODULE_CBOMS: "false"
+    HOME: /tmp
+  args: []                    # the image's CMD runs the scanner
+output: cbom/cbom.json
+format: cyclonedx
+languages:
+  Python: python
+  Java: java
+  Go: go
+  C#: csharp
+  # TypeScript is not supported by the Sonar Cryptography plugin; omitted on purpose so the run is
+  # recorded as "unsupported" rather than as a failure.
+timeout_seconds: 2400
+twocbom:
+  aliases: [cbomkit, cbom-kit, ibm cbomkit, cbomkit-action, cbomkit-hyperion, sonar-cryptography, sonar cryptography, cbomkit-cli, IBM/CBOMkit, PQCA/CBOMkit]
+  detection_method: static-source

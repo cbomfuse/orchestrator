@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cbom-orchestrator"
+version = "0.1.0"
+description = "Benchmarks CBOM generators against the cbomfuse/baseline ground truth and produces versioned, per-category reliability scores that 2CBOM uses to reconcile conflicts."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Amin Jafarpour" }]
+dependencies = ["pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+orchestrator = "orchestrator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["orchestrator*"]
+
+[tool.setuptools.package-data]
+orchestrator = ["data/tools/*.yaml", "data/tools/*.yml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

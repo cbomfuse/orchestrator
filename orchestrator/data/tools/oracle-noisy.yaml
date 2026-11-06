@@ -1,0 +1,22 @@
+# A deliberately imperfect oracle for exercising the scoring model (see tools/oracle.py for the knobs).
+id: oracle-noisy
+name: oracle-noisy
+repo: null
+adapter: orchestrator.tools.oracle:OracleAdapter
+description: Reference CBOM with injected misses, wrong values, missing attributes and false positives.
+launcher: local
+languages: {Python: python, Java: java, Go: go, C#: csharp}   # no TypeScript: exercises "unsupported"
+options:
+  degrade:
+    seed: 7
+    drop_assets: 0.2
+    drop_asset_types: [protocol]
+    drop_attributes: [oid, classicalSecurityLevel]
+    wrong_attributes: {mode: 0.4, parameterSetIdentifier: 0.2, primitive: 0.1}
+    drop_locations: 0.3
+    family_only: 0.25
+    false_positives: 3
+    lexical_false_positives: 2
+twocbom:
+  aliases: [oracle-noisy]
+  detection_method: manual

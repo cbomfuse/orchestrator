@@ -1,0 +1,12 @@
+# The oracle replays each case's reference CBOM; it must score 1.0 everywhere.  Use it to check the
+# pipeline and as the upper bound in reports.  Not enabled by default.
+id: oracle
+name: oracle (reference CBOM replay)
+repo: null
+adapter: orchestrator.tools.oracle:OracleAdapter
+description: Replays the corpus' own cbom.cdx.json; a perfect tool for self-tests.
+launcher: local
+languages: {Python: python, Java: java, Go: go, TypeScript: typescript, C#: csharp}
+twocbom:
+  aliases: [oracle]
+  detection_method: manual
