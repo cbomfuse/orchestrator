@@ -1,4 +1,3 @@
-# Project configuration for the cbomfuse CBOM-generator benchmark (see docs/running.md).
 baseline:
   repo: https://github.com/cbomfuse/baseline.git
   ref: main
