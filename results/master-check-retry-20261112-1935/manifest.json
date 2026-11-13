@@ -1,0 +1,973 @@
+{
+  "runId": "master-check-retry-20261112-1935",
+  "startedAt": "2026-11-13T02:34:15Z",
+  "finishedAt": "2026-11-13T02:42:02Z",
+  "host": {
+    "hostname": "DESKTOP-SF90SPS",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.2",
+    "orchestrator": "0.1.0"
+  },
+  "config": {
+    "baseline": {
+      "repo": "https://github.com/cbomfuse/baseline.git",
+      "ref": "main",
+      "path": ".orchestrator/baseline",
+      "include_cases": [],
+      "exclude_cases": [],
+      "exclude_dirs": [
+        "_tooling"
+      ],
+      "ground_truth_file": "ground-truth.json",
+      "reference_cbom_file": "cbom.cdx.json"
+    },
+    "tools": {
+      "dir": "tools.d",
+      "enabled": [
+        "cbomkit",
+        "cdxgen",
+        "cryptobom-forge"
+      ],
+      "pins": {
+        "cbomkit": "2.3.0",
+        "cdxgen": "13.7.0",
+        "cryptobom-forge": "1.1.0",
+        "codeql": "codeql-bundle-v2.27.4"
+      },
+      "default_launcher": null,
+      "cache_dir": "C:\\q"
+    },
+    "results": {
+      "dir": "results",
+      "keep_workspaces": false,
+      "latest_symlink": true
+    },
+    "github": {
+      "api": "https://api.github.com",
+      "token_env": "GITHUB_TOKEN",
+      "allow_prerelease": false
+    },
+    "docker": {
+      "binary": "docker",
+      "pull_policy": "missing",
+      "user": "current",
+      "extra_args": []
+    },
+    "run": {
+      "timeout_seconds": 1800,
+      "keep_going": true
+    },
+    "scoring": {
+      "weights": {
+        "recall": 0.35,
+        "precision": 0.15,
+        "completeness": 0.15,
+        "correctness": 0.25,
+        "locality": 0.1
+      },
+      "line_tolerance": 1,
+      "min_support": 5,
+      "min_support_head_to_head": 3,
+      "strength_threshold": 0.8,
+      "strength_min_support": 5,
+      "treat_failed_as_zero": false,
+      "undecided_below": 0.6,
+      "backoff_relevance_decay": 0.15,
+      "shrinkage_prior_weight": 5,
+      "attribute_weights": {}
+    },
+    "export": {
+      "twocbom": {
+        "trust_floor": 20,
+        "trust_ceiling": 95,
+        "default_trust": 50
+      }
+    }
+  },
+  "baseline": {
+    "repo": "https://github.com/cbomfuse/baseline.git",
+    "ref": "main",
+    "commit": "7cb9d9a1fa91a1769eb70e75cb42c458f7a01137",
+    "describe": "7cb9d9a",
+    "path": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline",
+    "synced": true,
+    "notes": [],
+    "cases": [
+      {
+        "id": "CSharp",
+        "language": "C#",
+        "dir": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\CSharp",
+        "groundTruth": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\CSharp\\ground-truth.json",
+        "referenceCbom": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\CSharp\\cbom.cdx.json",
+        "sourceFile": "Program.cs"
+      },
+      {
+        "id": "Go",
+        "language": "Go",
+        "dir": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Go",
+        "groundTruth": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Go\\ground-truth.json",
+        "referenceCbom": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Go\\cbom.cdx.json",
+        "sourceFile": "main.go"
+      },
+      {
+        "id": "Java",
+        "language": "Java",
+        "dir": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Java",
+        "groundTruth": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Java\\ground-truth.json",
+        "referenceCbom": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Java\\cbom.cdx.json",
+        "sourceFile": "src/main/java/corpus/CryptoShowcase.java"
+      },
+      {
+        "id": "Python",
+        "language": "Python",
+        "dir": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Python",
+        "groundTruth": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Python\\ground-truth.json",
+        "referenceCbom": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\Python\\cbom.cdx.json",
+        "sourceFile": "crypto_showcase.py"
+      },
+      {
+        "id": "TypeScript",
+        "language": "TypeScript",
+        "dir": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\TypeScript",
+        "groundTruth": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\TypeScript\\ground-truth.json",
+        "referenceCbom": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\.orchestrator\\baseline\\TypeScript\\cbom.cdx.json",
+        "sourceFile": "src/main.ts"
+      }
+    ]
+  },
+  "tools": {
+    "cbomkit": {
+      "tool": "cbomkit",
+      "name": "CBOMkit-action",
+      "repo": "https://github.com/cbomkit/cbomkit-action",
+      "strategy": "fixed",
+      "tag": "v2.3.0",
+      "version": "2.3.0",
+      "commit": "34a3d960625ae7f7f1b59455eff93a96df090eb7",
+      "resolved_at": "2026-11-13T02:34:15Z",
+      "source": "pinned",
+      "url": "https://github.com/cbomkit/cbomkit-action/releases/tag/v2.3.0",
+      "launcher": "docker",
+      "image": "ghcr.io/cbomkit/cbomkit-action:2.3.0",
+      "image_digest": "ghcr.io/cbomkit/cbomkit-action@sha256:8b2dc8c8f55ccd9b51ce67c86848281e59861d4a4105b5b0523a096dfe6be6d8",
+      "image_id": "sha256:c9d630b1d353ffab985cb49cd8e9a79d7a438f537a4f073845ec22af0545a26e",
+      "reported": null,
+      "components": {
+        "org.opencontainers.image.version": "2.3.0",
+        "org.opencontainers.image.revision": "4737333fb6d50cf74e7048b4bff991ae85b307a0"
+      },
+      "notes": [
+        "pinned to tag"
+      ],
+      "spec": {
+        "id": "cbomkit",
+        "name": "CBOMkit-action",
+        "repo": "https://github.com/cbomkit/cbomkit-action",
+        "description": "CBOM generation from source code (Java, Python, Go, C#) via the Sonar Cryptography plugin, packaged as the cbomkit-action container.  Not available as a local install: the jar depends on packages hosted on GitHub Packages, so the published image is the reproducible artefact.",
+        "adapter": "orchestrator.tools.generic:CommandToolAdapter",
+        "versioning": {
+          "strategy": "release"
+        },
+        "launcher": "docker",
+        "docker": {
+          "image": "ghcr.io/cbomkit/cbomkit-action:{version}",
+          "fallback_tag": "edge",
+          "mount": "/github/workspace",
+          "workdir": "/github/workspace",
+          "user": "current",
+          "env": {
+            "GITHUB_WORKSPACE": "{mount}",
+            "GITHUB_OUTPUT": "{mount}/.cbomkit-output.txt",
+            "CBOMKIT_OUTPUT_DIR": "{mount}/cbom",
+            "CBOMKIT_LANGUAGES": "{language}",
+            "CBOMKIT_JAVA_REQUIRE_BUILD": "false",
+            "CBOMKIT_WRITE_EMTPY_CBOMS": "true",
+            "CBOMKIT_GENERATE_MODULE_CBOMS": "false",
+            "HOME": "/tmp"
+          },
+          "args": []
+        },
+        "local": {},
+        "languages": {
+          "Python": "python",
+          "Java": "java",
+          "Go": "go",
+          "C#": "csharp"
+        },
+        "output": "cbom/cbom.json",
+        "format": "cyclonedx",
+        "timeout_seconds": 2400,
+        "twocbom": {
+          "aliases": [
+            "cbomkit",
+            "cbom-kit",
+            "ibm cbomkit",
+            "cbomkit-action",
+            "cbomkit-hyperion",
+            "sonar-cryptography",
+            "sonar cryptography",
+            "cbomkit-cli",
+            "IBM/CBOMkit",
+            "PQCA/CBOMkit"
+          ],
+          "detection_method": "static-source"
+        },
+        "options": {},
+        "source": "builtin:cbomkit.yaml"
+      }
+    },
+    "cdxgen": {
+      "tool": "cdxgen",
+      "name": "cdxgen",
+      "repo": "https://github.com/CycloneDX/cdxgen",
+      "strategy": "fixed",
+      "tag": "v13.7.0",
+      "version": "13.7.0",
+      "commit": "5951a068f08a728a40e30aaaec89481f7027ce68",
+      "resolved_at": "2026-11-13T02:34:18Z",
+      "source": "pinned",
+      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.7.0",
+      "launcher": "docker",
+      "image": "ghcr.io/cyclonedx/cdxgen:latest",
+      "image_digest": "ghcr.io/cyclonedx/cdxgen@sha256:fe06e0320a76aa15fab6542caa0db5a44fcb1ff12af5146d4bef03e8920d444e",
+      "image_id": "sha256:8a28893e1d1223c4398b0eefb225446b0611622e1ab11cf9b5afbd7a70c29535",
+      "reported": null,
+      "components": {
+        "org.opencontainers.image.version": "master-amd64",
+        "org.opencontainers.image.revision": "0720d650b00d293a041e69cb29a1abcd7c8575a8"
+      },
+      "notes": [
+        "pinned to tag",
+        "image ghcr.io/cyclonedx/cdxgen:v13.7.0 unavailable (docker pull ghcr.io/cyclonedx/cdxgen:v13.7.0 failed: Error response from daemon: manifest unknown); using ghcr.io/cyclonedx/cdxgen:latest"
+      ],
+      "spec": {
+        "id": "cdxgen",
+        "name": "cdxgen",
+        "repo": "https://github.com/CycloneDX/cdxgen",
+        "description": "CycloneDX generator with CBOM support (cryptographic-asset components, evidence occurrences).",
+        "adapter": "orchestrator.tools.generic:CommandToolAdapter",
+        "versioning": {
+          "strategy": "release"
+        },
+        "launcher": "docker",
+        "docker": {
+          "image": "ghcr.io/cyclonedx/cdxgen:{tag}",
+          "fallback_tag": "latest",
+          "mount": "/app",
+          "workdir": "/app",
+          "user": "current",
+          "env": {
+            "FETCH_LICENSE": "false",
+            "CDXGEN_DEBUG_MODE": "none",
+            "HOME": "/tmp",
+            "NPM_CONFIG_CACHE": "/tmp/.npm"
+          },
+          "args": [
+            "-t",
+            "{language}",
+            "--include-crypto",
+            "--evidence",
+            "--deep",
+            "--spec-version",
+            "1.6",
+            "-o",
+            "{output_container}",
+            "{mount}"
+          ]
+        },
+        "local": {
+          "install": [
+            [
+              "npm",
+              "install",
+              "--prefix",
+              "{cache}",
+              "--no-audit",
+              "--no-fund",
+              "@cyclonedx/cdxgen@{version}"
+            ]
+          ],
+          "check": [
+            "{cache}/node_modules/.bin/cdxgen",
+            "--version"
+          ],
+          "command": [
+            "{cache}/node_modules/.bin/cdxgen",
+            "-t",
+            "{language}",
+            "--include-crypto",
+            "--evidence",
+            "--deep",
+            "--spec-version",
+            "1.6",
+            "-o",
+            "{output}",
+            "{workdir}"
+          ],
+          "env": {
+            "FETCH_LICENSE": "false"
+          }
+        },
+        "languages": {
+          "Python": "python",
+          "Java": "java",
+          "Go": "go",
+          "TypeScript": "js",
+          "C#": "dotnet"
+        },
+        "output": "cbom.cdxgen.json",
+        "format": "cyclonedx",
+        "timeout_seconds": 2400,
+        "twocbom": {
+          "aliases": [
+            "cdxgen",
+            "@cyclonedx/cdxgen",
+            "cyclonedx-generator",
+            "cyclonedx generator",
+            "@cyclonedx/cdxgen"
+          ],
+          "detection_method": "static-source"
+        },
+        "options": {},
+        "source": "builtin:cdxgen.yaml"
+      }
+    },
+    "cryptobom-forge": {
+      "tool": "cryptobom-forge",
+      "name": "cryptobom-forge",
+      "repo": "https://github.com/santandersecurityresearch/cryptobom-forge",
+      "strategy": "fixed",
+      "tag": "1.1.0",
+      "version": "1.1.0",
+      "commit": "4197d512a2275b4adf9101787f9f44278875b9b4",
+      "resolved_at": "2026-11-13T02:34:23Z",
+      "source": "pinned",
+      "url": "https://github.com/santandersecurityresearch/cryptobom-forge/releases/tag/1.1.0",
+      "launcher": "local",
+      "image": null,
+      "image_digest": null,
+      "image_id": null,
+      "reported": null,
+      "components": {
+        "python": "3.11.2",
+        "codeql": {
+          "source": "bundle",
+          "repo": "https://github.com/github/codeql-action",
+          "tag": "codeql-bundle-v2.27.4",
+          "version": "2.27.4",
+          "commit": "52cf1852265d99e9bea071b03366fc777a602909",
+          "resolvedAt": "2026-11-13T02:34:24Z",
+          "cliVersion": "2.27.4",
+          "binary": "C:\\q\\cryptobom-forge\\codeql\\2.27.4\\codeql\\codeql.exe"
+        },
+        "forge": {
+          "reportedVersion": "cryptobom, version 1.1.0"
+        },
+        "queryPacks": {
+          "actions-queries": "0.6.39",
+          "cpp-queries": "1.10.0",
+          "csharp-queries": "1.11.0",
+          "go-queries": "1.6.14",
+          "java-queries": "1.12.0",
+          "javascript-queries": "2.5.0",
+          "python-queries": "1.9.0",
+          "ruby-queries": "1.7.0",
+          "rust-queries": "0.1.46",
+          "swift-queries": "1.4.0"
+        }
+      },
+      "notes": [
+        "pinned to tag",
+        "cryptobom-forge 1.1.0 already installed in C:\\q\\cryptobom-forge\\forge\\1.1.0\\venv"
+      ],
+      "spec": {
+        "id": "cryptobom-forge",
+        "name": "cryptobom-forge",
+        "repo": "https://github.com/santandersecurityresearch/cryptobom-forge",
+        "description": "Cryptographic BOM generated from the CodeQL cryptography inventory queries.",
+        "adapter": "orchestrator.tools.cryptobom_forge:CryptobomForgeAdapter",
+        "versioning": {
+          "strategy": "release"
+        },
+        "launcher": "local",
+        "docker": {},
+        "local": {},
+        "languages": {
+          "Python": "python",
+          "Java": "java",
+          "Go": "go",
+          "TypeScript": "javascript",
+          "C#": "csharp"
+        },
+        "output": "cbom.json",
+        "format": "auto",
+        "timeout_seconds": 3600,
+        "twocbom": {
+          "aliases": [
+            "cryptobom-forge",
+            "cryptobomforge",
+            "cryptobom forge",
+            "forge",
+            "CodeQL cryptobom-forge"
+          ],
+          "detection_method": "static-source"
+        },
+        "options": {
+          "codeql": {
+            "bundle_repo": "https://github.com/github/codeql-action",
+            "bundle_tag_pattern": "^codeql-bundle-v",
+            "binary": null,
+            "threads": 0,
+            "queries": {
+              "Python": [
+                "experimental/cryptography/inventory/new_models"
+              ],
+              "Java": [
+                "experimental/quantum/InventorySlices"
+              ]
+            },
+            "build_mode": {
+              "Java": "none",
+              "C#": "none"
+            }
+          },
+          "forge": {
+            "extra_args": []
+          }
+        },
+        "source": "builtin:cryptobom-forge.yaml"
+      }
+    }
+  },
+  "runs": [
+    {
+      "tool": "cbomkit",
+      "toolVersion": "2.3.0",
+      "case": "CSharp",
+      "language": "C#",
+      "startedAt": "2026-11-13T02:34:28Z",
+      "status": "ok",
+      "output": "raw\\cbomkit\\CSharp\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 5.47,
+      "log": "logs\\cbomkit\\CSharp.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cbomkit\\CSharp:/github/workspace",
+        "-e",
+        "GITHUB_WORKSPACE=/github/workspace",
+        "-e",
+        "GITHUB_OUTPUT=/github/workspace/.cbomkit-output.txt",
+        "-e",
+        "CBOMKIT_OUTPUT_DIR=/github/workspace/cbom",
+        "-e",
+        "CBOMKIT_LANGUAGES=csharp",
+        "-e",
+        "CBOMKIT_JAVA_REQUIRE_BUILD=false",
+        "-e",
+        "CBOMKIT_WRITE_EMTPY_CBOMS=true",
+        "-e",
+        "CBOMKIT_GENERATE_MODULE_CBOMS=false",
+        "-e",
+        "HOME=/tmp",
+        "-w",
+        "/github/workspace",
+        "ghcr.io/cbomkit/cbomkit-action:2.3.0"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:34:34Z"
+    },
+    {
+      "tool": "cbomkit",
+      "toolVersion": "2.3.0",
+      "case": "Go",
+      "language": "Go",
+      "startedAt": "2026-11-13T02:34:34Z",
+      "status": "ok",
+      "output": "raw\\cbomkit\\Go\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 4.11,
+      "log": "logs\\cbomkit\\Go.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cbomkit\\Go:/github/workspace",
+        "-e",
+        "GITHUB_WORKSPACE=/github/workspace",
+        "-e",
+        "GITHUB_OUTPUT=/github/workspace/.cbomkit-output.txt",
+        "-e",
+        "CBOMKIT_OUTPUT_DIR=/github/workspace/cbom",
+        "-e",
+        "CBOMKIT_LANGUAGES=go",
+        "-e",
+        "CBOMKIT_JAVA_REQUIRE_BUILD=false",
+        "-e",
+        "CBOMKIT_WRITE_EMTPY_CBOMS=true",
+        "-e",
+        "CBOMKIT_GENERATE_MODULE_CBOMS=false",
+        "-e",
+        "HOME=/tmp",
+        "-w",
+        "/github/workspace",
+        "ghcr.io/cbomkit/cbomkit-action:2.3.0"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:34:38Z"
+    },
+    {
+      "tool": "cbomkit",
+      "toolVersion": "2.3.0",
+      "case": "Java",
+      "language": "Java",
+      "startedAt": "2026-11-13T02:34:38Z",
+      "status": "ok",
+      "output": "raw\\cbomkit\\Java\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 22.59,
+      "log": "logs\\cbomkit\\Java.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cbomkit\\Java:/github/workspace",
+        "-e",
+        "GITHUB_WORKSPACE=/github/workspace",
+        "-e",
+        "GITHUB_OUTPUT=/github/workspace/.cbomkit-output.txt",
+        "-e",
+        "CBOMKIT_OUTPUT_DIR=/github/workspace/cbom",
+        "-e",
+        "CBOMKIT_LANGUAGES=java",
+        "-e",
+        "CBOMKIT_JAVA_REQUIRE_BUILD=false",
+        "-e",
+        "CBOMKIT_WRITE_EMTPY_CBOMS=true",
+        "-e",
+        "CBOMKIT_GENERATE_MODULE_CBOMS=false",
+        "-e",
+        "HOME=/tmp",
+        "-w",
+        "/github/workspace",
+        "ghcr.io/cbomkit/cbomkit-action:2.3.0"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:35:01Z"
+    },
+    {
+      "tool": "cbomkit",
+      "toolVersion": "2.3.0",
+      "case": "Python",
+      "language": "Python",
+      "startedAt": "2026-11-13T02:35:01Z",
+      "status": "ok",
+      "output": "raw\\cbomkit\\Python\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 5.61,
+      "log": "logs\\cbomkit\\Python.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cbomkit\\Python:/github/workspace",
+        "-e",
+        "GITHUB_WORKSPACE=/github/workspace",
+        "-e",
+        "GITHUB_OUTPUT=/github/workspace/.cbomkit-output.txt",
+        "-e",
+        "CBOMKIT_OUTPUT_DIR=/github/workspace/cbom",
+        "-e",
+        "CBOMKIT_LANGUAGES=python",
+        "-e",
+        "CBOMKIT_JAVA_REQUIRE_BUILD=false",
+        "-e",
+        "CBOMKIT_WRITE_EMTPY_CBOMS=true",
+        "-e",
+        "CBOMKIT_GENERATE_MODULE_CBOMS=false",
+        "-e",
+        "HOME=/tmp",
+        "-w",
+        "/github/workspace",
+        "ghcr.io/cbomkit/cbomkit-action:2.3.0"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:35:06Z"
+    },
+    {
+      "tool": "cbomkit",
+      "toolVersion": "2.3.0",
+      "case": "TypeScript",
+      "language": "TypeScript",
+      "startedAt": "2026-11-13T02:35:07Z",
+      "status": "unsupported",
+      "output": null,
+      "exitCode": null,
+      "durationSeconds": 0.0,
+      "log": null,
+      "command": [],
+      "notes": [
+        "cbomkit does not support TypeScript"
+      ],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:35:07Z"
+    },
+    {
+      "tool": "cdxgen",
+      "toolVersion": "13.7.0",
+      "case": "CSharp",
+      "language": "C#",
+      "startedAt": "2026-11-13T02:35:07Z",
+      "status": "ok",
+      "output": "raw\\cdxgen\\CSharp\\cbom.cdxgen.json",
+      "exitCode": 0,
+      "durationSeconds": 39.73,
+      "log": "logs\\cdxgen\\CSharp.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cdxgen\\CSharp:/app",
+        "-e",
+        "FETCH_LICENSE=false",
+        "-e",
+        "CDXGEN_DEBUG_MODE=none",
+        "-e",
+        "HOME=/tmp",
+        "-e",
+        "NPM_CONFIG_CACHE=/tmp/.npm",
+        "-w",
+        "/app",
+        "ghcr.io/cyclonedx/cdxgen:latest",
+        "-t",
+        "dotnet",
+        "--include-crypto",
+        "--evidence",
+        "--deep",
+        "--spec-version",
+        "1.6",
+        "-o",
+        "/app/cbom.cdxgen.json",
+        "/app"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:35:46Z"
+    },
+    {
+      "tool": "cdxgen",
+      "toolVersion": "13.7.0",
+      "case": "Go",
+      "language": "Go",
+      "startedAt": "2026-11-13T02:35:46Z",
+      "status": "ok",
+      "output": "raw\\cdxgen\\Go\\cbom.cdxgen.json",
+      "exitCode": 0,
+      "durationSeconds": 11.92,
+      "log": "logs\\cdxgen\\Go.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cdxgen\\Go:/app",
+        "-e",
+        "FETCH_LICENSE=false",
+        "-e",
+        "CDXGEN_DEBUG_MODE=none",
+        "-e",
+        "HOME=/tmp",
+        "-e",
+        "NPM_CONFIG_CACHE=/tmp/.npm",
+        "-w",
+        "/app",
+        "ghcr.io/cyclonedx/cdxgen:latest",
+        "-t",
+        "go",
+        "--include-crypto",
+        "--evidence",
+        "--deep",
+        "--spec-version",
+        "1.6",
+        "-o",
+        "/app/cbom.cdxgen.json",
+        "/app"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:35:58Z"
+    },
+    {
+      "tool": "cdxgen",
+      "toolVersion": "13.7.0",
+      "case": "Java",
+      "language": "Java",
+      "startedAt": "2026-11-13T02:35:58Z",
+      "status": "ok",
+      "output": "raw\\cdxgen\\Java\\cbom.cdxgen.json",
+      "exitCode": 0,
+      "durationSeconds": 64.53,
+      "log": "logs\\cdxgen\\Java.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cdxgen\\Java:/app",
+        "-e",
+        "FETCH_LICENSE=false",
+        "-e",
+        "CDXGEN_DEBUG_MODE=none",
+        "-e",
+        "HOME=/tmp",
+        "-e",
+        "NPM_CONFIG_CACHE=/tmp/.npm",
+        "-w",
+        "/app",
+        "ghcr.io/cyclonedx/cdxgen:latest",
+        "-t",
+        "java",
+        "--include-crypto",
+        "--evidence",
+        "--deep",
+        "--spec-version",
+        "1.6",
+        "-o",
+        "/app/cbom.cdxgen.json",
+        "/app"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:37:03Z"
+    },
+    {
+      "tool": "cdxgen",
+      "toolVersion": "13.7.0",
+      "case": "Python",
+      "language": "Python",
+      "startedAt": "2026-11-13T02:37:03Z",
+      "status": "ok",
+      "output": "raw\\cdxgen\\Python\\cbom.cdxgen.json",
+      "exitCode": 0,
+      "durationSeconds": 39.3,
+      "log": "logs\\cdxgen\\Python.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cdxgen\\Python:/app",
+        "-e",
+        "FETCH_LICENSE=false",
+        "-e",
+        "CDXGEN_DEBUG_MODE=none",
+        "-e",
+        "HOME=/tmp",
+        "-e",
+        "NPM_CONFIG_CACHE=/tmp/.npm",
+        "-w",
+        "/app",
+        "ghcr.io/cyclonedx/cdxgen:latest",
+        "-t",
+        "python",
+        "--include-crypto",
+        "--evidence",
+        "--deep",
+        "--spec-version",
+        "1.6",
+        "-o",
+        "/app/cbom.cdxgen.json",
+        "/app"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:37:42Z"
+    },
+    {
+      "tool": "cdxgen",
+      "toolVersion": "13.7.0",
+      "case": "TypeScript",
+      "language": "TypeScript",
+      "startedAt": "2026-11-13T02:37:42Z",
+      "status": "ok",
+      "output": "raw\\cdxgen\\TypeScript\\cbom.cdxgen.json",
+      "exitCode": 0,
+      "durationSeconds": 77.47,
+      "log": "logs\\cdxgen\\TypeScript.log",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\work\\cdxgen\\TypeScript:/app",
+        "-e",
+        "FETCH_LICENSE=false",
+        "-e",
+        "CDXGEN_DEBUG_MODE=none",
+        "-e",
+        "HOME=/tmp",
+        "-e",
+        "NPM_CONFIG_CACHE=/tmp/.npm",
+        "-w",
+        "/app",
+        "ghcr.io/cyclonedx/cdxgen:latest",
+        "-t",
+        "js",
+        "--include-crypto",
+        "--evidence",
+        "--deep",
+        "--spec-version",
+        "1.6",
+        "-o",
+        "/app/cbom.cdxgen.json",
+        "/app"
+      ],
+      "notes": [],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:39:01Z"
+    },
+    {
+      "tool": "cryptobom-forge",
+      "toolVersion": "1.1.0",
+      "case": "CSharp",
+      "language": "C#",
+      "startedAt": "2026-11-13T02:39:01Z",
+      "status": "unsupported",
+      "output": null,
+      "exitCode": null,
+      "durationSeconds": 0.0,
+      "log": null,
+      "command": [],
+      "notes": [
+        "no cryptography inventory queries configured/available for C#"
+      ],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:39:01Z"
+    },
+    {
+      "tool": "cryptobom-forge",
+      "toolVersion": "1.1.0",
+      "case": "Go",
+      "language": "Go",
+      "startedAt": "2026-11-13T02:39:01Z",
+      "status": "unsupported",
+      "output": null,
+      "exitCode": null,
+      "durationSeconds": 0.0,
+      "log": null,
+      "command": [],
+      "notes": [
+        "no cryptography inventory queries configured/available for Go"
+      ],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:39:01Z"
+    },
+    {
+      "tool": "cryptobom-forge",
+      "toolVersion": "1.1.0",
+      "case": "Java",
+      "language": "Java",
+      "startedAt": "2026-11-13T02:39:01Z",
+      "status": "ok",
+      "output": "raw\\cryptobom-forge\\Java\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 149.06,
+      "log": "logs\\cryptobom-forge\\Java.log",
+      "command": [
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'database', 'create', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db', '--language=java', '--source-root=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--overwrite', '--build-mode=none']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'database', 'run-queries', '--threads=0', '--', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db', 'C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\qlpacks\\\\codeql\\\\java-queries\\\\1.12.0\\\\experimental\\\\quantum\\\\InventorySlices']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownAsymmetricAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-asymmetric-algorithm', '-t=name=Operations using known asymmetric cipher algorithms (slice)', '-t=description=Outputs operations where the algorithm used is a known asymmetric cipher algorithm.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricCipherAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricCipherAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownAsymmetricCipherAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-asymmetric-cipher-algorithm', '-t=name=Known asymmetric cipher algorithms (slice)', '-t=description=Outputs known asymmetric cipher algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricOperationAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownAsymmetricOperationAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownAsymmetricOperationAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-asymmetric-operation-algorithm', '-t=name=Operations using known asymmetric algorithms (slice)', '-t=description=Outputs operations where the algorithm used is a known asymmetric algorithm.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownCipherAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownCipherAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownCipherAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-cipher-algorithm', '-t=name=Known cipher algorithms (slice)', '-t=description=Outputs known cipher algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownEllipticCurveAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownEllipticCurveAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownEllipticCurveAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-elliptic-curve-algorithm', '-t=name=Known elliptic curve algorithms (slice)', '-t=description=Outputs known elliptic curve algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownHashingAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-hashing-algorithm', '-t=name=Known hashing algorithms (slice)', '-t=description=Outputs known hashing algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingOperation.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'decode', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingOperation.bqrs', '--format=json', '--entities=all', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\KnownHashingOperation.bqrs.json']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingOperationAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownHashingOperationAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownHashingOperationAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/operation-with-known-hashing-algorithm', '-t=name=Operations using known hashing algorithms (slice)', '-t=description=Outputs operations where the algorithm used is a known hashing algorithm.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownKeyDerivationAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-key-derivation-algorithm', '-t=name=Known key derivation algorithms (slice)', '-t=description=Outputs known key derivation algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationOperation.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'decode', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationOperation.bqrs', '--format=json', '--entities=all', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\KnownKeyDerivationOperation.bqrs.json']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationOperationAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownKeyDerivationOperationAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownKeyDerivationOperationAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/operation-with-known-kdf-algorithm', '-t=name=Operations using known key derivation algorithms (slice)', '-t=description=Outputs operations where the algorithm used is a known key derivation algorithm.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'info', '--format=json', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownSymmetricCipherAlgorithm.bqrs']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\KnownSymmetricCipherAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\KnownSymmetricCipherAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/known-symmetric-cipher-algorithm', '-t=name=Known symmetric cipher algorithms (slice)', '-t=description=Outputs known symmetric cipher algorithms.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\LikelyCryptoAPIFunction.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\LikelyCryptoAPIFunction.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/likely-crypto-api-function', '-t=name=Likely crypto API function', '-t=description=Outputs functions that take in crypto configuration parameters but calls are not detected in source.']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'bqrs', 'interpret', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\db\\\\results\\\\codeql\\\\java-queries\\\\experimental\\\\quantum\\\\InventorySlices\\\\UnknownOperationAlgorithm.bqrs', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif\\\\UnknownOperationAlgorithm.sarif', '--source-archive=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '--source-location-prefix=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java', '-t=kind=problem', '-t=id=java/quantum/slices/operation-with-unknown-algorithm', '-t=name=Operations with unknown algorithm', '-t=description=Outputs operations where the algorithm applied is unknown']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\forge\\\\1.1.0\\\\venv\\\\Scripts\\\\cryptobom.exe', 'generate', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java.codeql\\\\sarif', '-o', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Java\\\\cbom.json', '-n', 'Java']"
+      ],
+      "notes": [],
+      "extra": {
+        "sarif": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\raw\\cryptobom-forge\\Java\\crypto.sarif",
+        "codeqlLanguage": "java",
+        "queries": [
+          "C:\\q\\cryptobom-forge\\codeql\\2.27.4\\codeql\\qlpacks\\codeql\\java-queries\\1.12.0\\experimental\\quantum\\InventorySlices"
+        ]
+      },
+      "finishedAt": "2026-11-13T02:41:30Z"
+    },
+    {
+      "tool": "cryptobom-forge",
+      "toolVersion": "1.1.0",
+      "case": "Python",
+      "language": "Python",
+      "startedAt": "2026-11-13T02:41:30Z",
+      "status": "ok",
+      "output": "raw\\cryptobom-forge\\Python\\cbom.json",
+      "exitCode": 0,
+      "durationSeconds": 31.45,
+      "log": "logs\\cryptobom-forge\\Python.log",
+      "command": [
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'database', 'create', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python.codeql\\\\db', '--language=python', '--source-root=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python', '--overwrite']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\codeql.exe', 'database', 'analyze', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python.codeql\\\\db', 'C:\\\\q\\\\cryptobom-forge\\\\codeql\\\\2.27.4\\\\codeql\\\\qlpacks\\\\codeql\\\\python-queries\\\\1.9.0\\\\experimental\\\\cryptography\\\\inventory\\\\new_models', '--format=sarif-latest', '--output=C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python.codeql\\\\sarif\\\\crypto.sarif', '--sarif-add-snippets', '--threads=0', '--rerun']",
+        "['C:\\\\q\\\\cryptobom-forge\\\\forge\\\\1.1.0\\\\venv\\\\Scripts\\\\cryptobom.exe', 'generate', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python.codeql\\\\sarif', '-o', 'C:\\\\Users\\\\saket\\\\OneDrive\\\\Desktop\\\\orchestrator\\\\results\\\\master-check-retry-20261112-1935\\\\work\\\\cryptobom-forge\\\\Python\\\\cbom.json', '-n', 'Python']"
+      ],
+      "notes": [],
+      "extra": {
+        "sarif": "C:\\Users\\saket\\OneDrive\\Desktop\\orchestrator\\results\\master-check-retry-20261112-1935\\raw\\cryptobom-forge\\Python\\crypto.sarif",
+        "codeqlLanguage": "python",
+        "queries": [
+          "C:\\q\\cryptobom-forge\\codeql\\2.27.4\\codeql\\qlpacks\\codeql\\python-queries\\1.9.0\\experimental\\cryptography\\inventory\\new_models"
+        ]
+      },
+      "finishedAt": "2026-11-13T02:42:02Z"
+    },
+    {
+      "tool": "cryptobom-forge",
+      "toolVersion": "1.1.0",
+      "case": "TypeScript",
+      "language": "TypeScript",
+      "startedAt": "2026-11-13T02:42:02Z",
+      "status": "unsupported",
+      "output": null,
+      "exitCode": null,
+      "durationSeconds": 0.0,
+      "log": null,
+      "command": [],
+      "notes": [
+        "no cryptography inventory queries configured/available for TypeScript"
+      ],
+      "extra": {},
+      "finishedAt": "2026-11-13T02:42:02Z"
+    }
+  ]
+}
