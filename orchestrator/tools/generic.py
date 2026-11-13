@@ -40,6 +40,18 @@ from .base import ToolAdapter, ToolRunResult, ToolVersion, as_argv, render
 log = logging.getLogger("orchestrator.tools.generic")
 
 
+def _resolve_executable(argv: list[str]) -> list[str]:
+    if not argv:
+        return argv
+    if os.name == "nt" and not os.path.splitext(argv[0])[1]:
+        for suffix in (".cmd", ".bat"):
+            shim = argv[0] + suffix
+            if os.path.isfile(shim):
+                return [shim, *argv[1:]]
+    executable = which(argv[0])
+    return [executable, *argv[1:]] if executable else argv
+
+
 class CommandToolAdapter(ToolAdapter):
     # ------------------------------------------------------------------ version
     def resolve(self, pin: Optional[str] = None) -> ToolVersion:
@@ -97,13 +109,14 @@ class CommandToolAdapter(ToolAdapter):
         variables = self.variables(version)
         env = render(local.get("env") or {}, variables)
         for step in local.get("install") or []:
-            argv = render(as_argv(step), variables)
+            argv = _resolve_executable(render(as_argv(step), variables))
             res = run_command(argv, cwd=self.cache_dir, env=env, timeout=1800, log_path=log_path)
             if not res.ok:
                 raise RuntimeError(f"{self.spec.id}: install step failed: {' '.join(argv)}\n{res.summary(800)}")
         check = local.get("check")
         if check:
-            res = run_command(render(as_argv(check), variables), cwd=self.cache_dir, env=env, timeout=300, log_path=log_path)
+            argv = _resolve_executable(render(as_argv(check), variables))
+            res = run_command(argv, cwd=self.cache_dir, env=env, timeout=300, log_path=log_path)
             if res.ok:
                 version.components["check"] = (res.stdout or res.stderr).strip()[:200]
             else:
@@ -190,6 +203,7 @@ class CommandToolAdapter(ToolAdapter):
         argv = render(as_argv(entry.get("command") if entry.get("command") is not None else local.get("command")), variables)
         if argv and not which(argv[0]) and not Path(argv[0]).exists():
             return ToolRunResult("failed", notes=[f"{argv[0]} not found on PATH; run `orchestrator tools install {self.spec.id}`"])
+        argv = _resolve_executable(argv)
         res = run_command(argv, cwd=render(local.get("cwd"), variables) or workdir, env=env, timeout=self.timeout(),
                           log_path=log_path)
         return self._finish(res, workdir, variables, out_dir, res.argv)

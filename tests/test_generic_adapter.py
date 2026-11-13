@@ -75,3 +75,66 @@ def test_local_launcher_end_to_end(tmp_path, fixtures):
     res2 = adapter.run(empty_case, work, version, tmp_path / "raw2", tmp_path / "log.txt")
     assert res2.status == "empty"
     assert "faketool" in (tmp_path / "log.txt").read_text()
+
+
+def test_local_install_resolves_windows_command_shims(tmp_path, monkeypatch):
+    from orchestrator.process import CommandResult
+    from orchestrator.tools import generic
+
+    config = Config.defaults(tmp_path)
+    config.data["tools"]["default_launcher"] = "local"
+    config.data["tools"]["cache_dir"] = str(tmp_path / "cache")
+    adapter = make_adapter(load_specs(config)["cdxgen"], config)
+    version = ToolVersion.fixed("cdxgen", "cdxgen", "13.7.0", tag="v13.7.0", launcher="local")
+    commands = []
+
+    def resolve(command):
+        if command == "npm":
+            return r"C:\Program Files\nodejs\npm.CMD"
+        if command.endswith("cdxgen"):
+            return r"C:\cache\cdxgen.CMD"
+        return None
+
+    def run_install_command(argv, **kwargs):
+        commands.append(argv)
+        return CommandResult(list(argv), 0, "13.7.0", "", 0.0)
+
+    monkeypatch.setattr(generic, "which", resolve)
+    monkeypatch.setattr(generic, "run_command", run_install_command)
+    adapter._install_local(version, None)
+
+    assert commands[0][0] == r"C:\Program Files\nodejs\npm.CMD"
+    assert commands[1][0] == r"C:\cache\cdxgen.CMD"
+
+
+def test_local_install_resolves_command_shim_sibling(tmp_path, monkeypatch):
+    from orchestrator.tools import generic
+
+    monkeypatch.setattr(generic.os, "name", "nt")
+    monkeypatch.setattr(generic, "which", lambda command: None)
+    monkeypatch.setattr(generic.os.path, "isfile", lambda path: path == r"C:\cache\node_modules\.bin\cdxgen.cmd")
+
+    result = generic._resolve_executable([r"C:\cache\node_modules\.bin\cdxgen", "--version"])
+
+    assert result == [r"C:\cache\node_modules\.bin\cdxgen.cmd", "--version"]
+
+
+def test_process_runs_windows_command_shims_through_cmd(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from orchestrator import process
+
+    commands = []
+
+    def run_process(argv, **kwargs):
+        commands.append(argv)
+        return SimpleNamespace(returncode=0, stdout="11.17.0", stderr="")
+
+    monkeypatch.setattr(process.os, "name", "nt")
+    monkeypatch.setenv("COMSPEC", r"C:\Windows\System32\cmd.exe")
+    monkeypatch.setattr(process.subprocess, "run", run_process)
+
+    result = process.run_command([r"C:\Program Files\nodejs\npm.CMD", "--version"])
+
+    assert result.ok
+    assert commands == [[r"C:\Windows\System32\cmd.exe", "/d", "/c",
+                         r"C:\Program Files\nodejs\npm.CMD", "--version"]]

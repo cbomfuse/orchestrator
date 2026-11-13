@@ -51,8 +51,11 @@ def run_command(argv: Sequence[str], *, cwd: Optional[os.PathLike | str] = None,
     log.debug("$ %s (cwd=%s)", " ".join(shlex.quote(a) for a in argv), cwd)
     start = time.monotonic()
     timed_out = False
+    process_argv = argv
+    if os.name == "nt" and argv[0].lower().endswith((".bat", ".cmd")):
+        process_argv = [os.environ.get("COMSPEC", "cmd.exe"), "/d", "/c", *argv]
     try:
-        proc = subprocess.run(argv, cwd=cwd, env=merged_env, input=input_text, capture_output=True,
+        proc = subprocess.run(process_argv, cwd=cwd, env=merged_env, input=input_text, capture_output=True,
                               text=True, timeout=timeout, errors="replace")
         rc, out, err = proc.returncode, proc.stdout, proc.stderr
     except subprocess.TimeoutExpired as exc:
