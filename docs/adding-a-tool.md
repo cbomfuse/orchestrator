@@ -70,7 +70,7 @@ twocbom:                   # copied into the exported tools.json
 | `{output_container}` | the output path as seen inside the container |
 | `{language}` | the per-language value; other per-language keys as `{language_<key>}` |
 | `{case}`, `{language_name}`, `{source_file}` | case id, corpus language, main source file |
-| `{cache}` | `.orchestrator/cache/<id>` |
+| `{cache}` | `~/.cache/orchestrator/<id>` |
 | `{home}`, `{platform}`, `{uid}`, `{gid}` | host facts |
 
 ### What the orchestrator does with it

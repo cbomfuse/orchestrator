@@ -6,8 +6,8 @@
 |---|---|---|
 | Python ≥ 3.10, `git` | everything | `pip install -e .` installs the only dependency (PyYAML) |
 | Docker (or Podman with a `docker` shim) | `cbomkit`, `cdxgen` (default launcher) | images are pulled by release tag; set `docker.pull_policy` |
-| Node.js ≥ 24 | `cdxgen` with `--launcher local` | installed into `.orchestrator/cache/cdxgen` via npm |
-| ~1 GB disk, Python venv | `cryptobom-forge` | the CodeQL bundle (CLI + query packs) is downloaded once into `.orchestrator/cache/cryptobom-forge/codeql/<version>` |
+| Node.js ≥ 24 | `cdxgen` with `--launcher local` | installed into `~/.cache/orchestrator/cdxgen` via npm |
+| ~1 GB disk, Python venv | `cryptobom-forge` | the CodeQL bundle (CLI + query packs) is downloaded once into `~/.cache/orchestrator/cryptobom-forge/codeql/<version>` |
 | `GITHUB_TOKEN` (optional) | version resolution | lifts the unauthenticated API limit; without it `git ls-remote` is used, which needs no token |
 
 CBOMkit has no local launcher: its jar depends on packages published on GitHub Packages, so the

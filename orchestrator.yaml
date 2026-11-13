@@ -5,6 +5,6 @@ baseline:
 tools:
   enabled: [cbomkit, cdxgen, cryptobom-forge]
   pins: {}
-  cache_dir: 'C:\q'
+  cache_dir: ~/.cache/orchestrator
 results:
   dir: results

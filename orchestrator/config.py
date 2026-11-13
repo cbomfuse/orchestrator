@@ -25,7 +25,7 @@ DEFAULT_CONFIG: dict = {
         "enabled": ["cbomkit", "cdxgen", "cryptobom-forge"],
         "pins": {},
         "default_launcher": None,
-        "cache_dir": ".orchestrator/cache",
+        "cache_dir": "~/.cache/orchestrator",
     },
     "results": {
         "dir": "results",
@@ -158,7 +158,7 @@ tools:
   enabled: [cbomkit, cdxgen, cryptobom-forge]
   pins: {}                      # pin a tool to a version, e.g. {cdxgen: v13.7.0}; otherwise newest release
   default_launcher: null        # docker | local | null (= each tool's own default)
-  cache_dir: .orchestrator/cache
+  cache_dir: ~/.cache/orchestrator
 
 results:
   dir: results                  # one sub-directory per run
